@@ -1,17 +1,17 @@
 import {
     AppstoreOutlined,
-    ContainerOutlined,
-    DesktopOutlined,
     MailOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    PieChartOutlined,
 } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './index.css'
 
-function LefiNav() {
+function LefiNav(props) {
+    const [collapsed, setCollapsed] = useState(false);
+    const { onOpenMenu } = props;
+
     function getItem(label, key, icon, children, type) {
         return {
             key,
@@ -23,27 +23,26 @@ function LefiNav() {
     }
 
     const items = [
-        getItem('Option 1', '1', <PieChartOutlined />),
-        getItem('Option 2', '2', <DesktopOutlined />),
-        getItem('Option 3', '3', <ContainerOutlined />),
-        getItem('Navigation One', 'sub1', <MailOutlined />, [
-            getItem('Option 5', '5'),
-            getItem('Option 6', '6'),
-            getItem('Option 7', '7'),
-            getItem('Option 8', '8'),
+        getItem('菜单一', 'sub1', <MailOutlined />, [
+            getItem('子菜单1-1', '5'),
+            getItem('子菜单1-2', '6'),
         ]),
-        getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-            getItem('Option 9', '9'),
-            getItem('Option 10', '10'),
-            getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
+        getItem('菜单二', 'sub2', <AppstoreOutlined />, [
+            getItem('子菜单2-1', '9'),
+            getItem('子菜单2-2', '10'),
+            getItem('子菜单2-3', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
         ]),
     ];
 
-    const [collapsed, setCollapsed] = useState(false);
-
     const toggleCollapsed = () => {
+        // console.log(onOpenMenu,'onOpenMenu');
         setCollapsed(!collapsed);
     };
+
+    //监听collapsed实时状态，传值给父组件Anmin
+    useEffect(()=>{
+        onOpenMenu(collapsed)
+    },[props,onOpenMenu,collapsed])
 
 
     return (
@@ -51,13 +50,13 @@ function LefiNav() {
             <div className='left-nav-header'>
                 <span>react</span>
             </div>
-            <div style={{textAlign:'center',background:"#000022"}}>
+            <div style={{ textAlign: 'center', background: "#000022" }}>
                 <Button
                     type="text"
                     onClick={toggleCollapsed}
                     style={{
                         color: '#fff',
-                        fontSize:'20px'
+                        fontSize: '20px'
                     }}
                 >
                     {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -69,7 +68,7 @@ function LefiNav() {
                 defaultOpenKeys={['sub1']}
                 mode="inline"
                 theme="dark"
-                inlineCollapsed={collapsed}
+                // inlineCollapsed={collapsed}
                 items={items}
             />
         </div>
