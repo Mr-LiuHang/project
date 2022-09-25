@@ -11,7 +11,7 @@ import './index.css'
 
 function LefiNav(props) {
     const [collapsed, setCollapsed] = useState(false);
-    const { onOpenMenu } = props;
+    const { onOpenMenu,menuName } = props;
 
     function getItem(label, key, icon, children, type) {
         return {
@@ -25,7 +25,7 @@ function LefiNav(props) {
 
     const items = [
         getItem('菜单一', 'sub1', <MailOutlined />, [
-            getItem(<Link to='/menuOne/subMenuOne'>子菜单1-1</Link>, '5'),
+            getItem(<Link to='/menuOne/subMenuOne'>{menuName}</Link>, '5'),
             getItem(<Link to='/menuOne/subMenuTwo'>子菜单1-2</Link>, '6'),
         ]),
         getItem('菜单二', 'sub2', <AppstoreOutlined />, [

@@ -11,23 +11,29 @@ const { Header, Footer, Sider, Content } = Layout;
 
 function Anmin() {
   const [collapsed, setCollapsed] = useState(false);
+  const [menuName, setMenuName] = useState('子菜单1-1');
   //接收子组件LefiNav组件的值
   const onOpenMenu = (collapsed) => {
     // console.log(collapsed, 'collapsed');
     setCollapsed(collapsed)
   }
+  //接收SubMenuOne组件的值
+  const getIptValue=(value)=>{
+    // console.log(value,'----');
+    setMenuName(value)
+  }
 
   return (
     <Layout style={{ height: '100%' }}>
       <Sider style={{ background: '#000' }} collapsed={collapsed}>
-        <LefiNav onOpenMenu={onOpenMenu} />
+        <LefiNav onOpenMenu={onOpenMenu} menuName={menuName} />
       </Sider>
       <Layout>
         <Header style={{ background: '#000' }}>Header</Header>
         <Content>
           <Routes>
             <Route path='/' element={<Navigate to='/menuOne/subMenuOne'/>} />
-            <Route path='/menuOne/subMenuOne' element={<SubMenuOne />}></Route>
+            <Route path='/menuOne/subMenuOne' element={<SubMenuOne getIptValue={getIptValue}/>}></Route>
             <Route path='/menuOne/subMenuTwo' element={<SubMenuTwo />}></Route>
             <Route path='/menuOne/subMenuThree' element={<SubMenuThree />}></Route>
             <Route path='/menuOne/subMenuFour' element={<SubMenuFour />}></Route>
