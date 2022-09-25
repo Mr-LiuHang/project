@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
 import React, { useState,useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import './index.css'
 
 function LefiNav(props) {
@@ -24,12 +25,12 @@ function LefiNav(props) {
 
     const items = [
         getItem('菜单一', 'sub1', <MailOutlined />, [
-            getItem('子菜单1-1', '5'),
-            getItem('子菜单1-2', '6'),
+            getItem(<Link to='/menuOne/subMenuOne'>子菜单1-1</Link>, '5'),
+            getItem(<Link to='/menuOne/subMenuTwo'>子菜单1-2</Link>, '6'),
         ]),
         getItem('菜单二', 'sub2', <AppstoreOutlined />, [
-            getItem('子菜单2-1', '9'),
-            getItem('子菜单2-2', '10'),
+            getItem(<Link to='/menuOne/subMenuThree'>子菜单2-1</Link>, '9'),
+            getItem(<Link to='/menuOne/subMenuFour'>子菜单2-2</Link>, '10'),
             getItem('子菜单2-3', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
         ]),
     ];
